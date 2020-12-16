@@ -16,15 +16,13 @@ def mongo_service(docker_ip, docker_services) -> str:
     def is_responsive(url):
         try:
             client = MongoClient(url)
-            result = client.admin.command('ping')
+            result = client.admin.command("ping")
             return True
         except ConnectionFailure:
             return False
 
     docker_services.wait_until_responsive(
-        timeout=15.0,
-        pause=0.2,
-        check=lambda: is_responsive(url)
+        timeout=15.0, pause=0.2, check=lambda: is_responsive(url)
     )
 
     return url
@@ -43,6 +41,7 @@ def json_A():
         "value2": 345.123,
         "value3": True,
     }
+
 
 @pytest.fixture
 def json_B():

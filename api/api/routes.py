@@ -3,6 +3,7 @@ from pymongo.collection import Collection
 from fastapi import (
     APIRouter,
     Depends,
+    HTTPException,
 )
 from . import db
 from .pydantic_models import (
@@ -12,7 +13,7 @@ from .pydantic_models import (
 )
 
 
-records = APIRouter(prefix="/api")
+records = APIRouter(prefix="/api", tags=["api"])
 
 
 @records.get("/list", response_model=List[Optional[RecordOut]])
@@ -37,6 +38,11 @@ def read_record(
     collection: Collection = Depends(db.get_records_collection),
 ):
     record = db.get_record_by_id(collection, record_id)
+    if not record:
+        raise HTTPException(
+            status_code=404,
+            detail=f"No record found with {record_id}",
+        )
     return record
 
 
@@ -47,6 +53,11 @@ def modify_record(
     collection: Collection = Depends(db.get_records_collection),
 ):
     record = db.update_record(collection, record_id, record)
+    if not record:
+        raise HTTPException(
+            status_code=404,
+            detail=f"No record found with {record_id}",
+        )
     return record
 
 
@@ -55,4 +66,10 @@ def delete_record(
     record_id: str,
     collection: Collection = Depends(db.get_records_collection),
 ):
-    return db.delete_record(collection, record_id)
+    record = db.delete_record(collection, record_id)
+    if not record:
+        raise HTTPException(
+            status_code=404,
+            detail=f"No record found with {record_id}",
+        )
+    return record

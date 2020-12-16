@@ -4,6 +4,7 @@
 from pymongo.mongo_client import MongoClient
 from ..config import get_settings
 
+
 settings = get_settings()
 client = MongoClient(
     host=settings.db_host,
