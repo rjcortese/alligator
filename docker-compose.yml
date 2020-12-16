@@ -1,18 +1,22 @@
-version: 3.8
+version: "3.8"
 services:
   api:
-    image: alligator
+    image: alligator:latest
     build: ./api
+    env_file:
+      - ./api/.env
     ports:
       - "8080:80"
-
-  mysql:
-    image: mysql/mysql-server:latest
+  db:
+    image: mongo:latest
+    env_file:
+      - ./db/.env
+    expose:
+      - "27017"
     volumes:
-      - "mysql-data:/var/lib/mysql"
-  expose:
-    - "3306"
+      - "db-data:/data/db"
+      - "db-conf:/data/configdb"
 
 volumes:
-  mysql-data:
-
+  db-data:
+  db-conf:

@@ -1,4 +1,0 @@
-Alligator API
-=============
-
-:crocodile:

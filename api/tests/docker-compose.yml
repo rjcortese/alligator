@@ -1,0 +1,9 @@
+version: "3.8"
+services:
+  db:
+    image: mongo:latest
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=tester
+      - MONGO_INITDB_ROOT_PASSWORD=testing
+    ports:
+      - "12345:27017"
