@@ -6,7 +6,7 @@ This app consists of a FastAPI app and a MongoDB instance.
 Each component of the system is in a subdirectory.
 
 ## See it live
-Deployed to azure kubernetes service. `http://20.42.32.16`
+Deployed to azure kubernetes service. `http://20.42.32.16`<br>
 <http://20.42.32.16/docs>
 
 ## Run it locally
